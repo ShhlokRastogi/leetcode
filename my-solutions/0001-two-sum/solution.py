@@ -1,8 +1,12 @@
 class Solution(object):
     def twoSum(self, nums, target):
-        n = len(nums)
-        for i in range(n):
-            for j in range(i + 1, n):
-                if nums[i] + nums[j] == target:
-                    return [i, j]
-        return []  # Return empty if no pair found
+        for i in range(len(nums)):
+             for k in range(len(nums)):
+                if i==k:
+                    continue 
+                if nums[i]+nums[k] == target:
+                    t=[i,k]
+                    return(t)
+                    break
+        return ()
+        
