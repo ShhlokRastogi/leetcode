@@ -1,22 +1,19 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        Set<Integer> numset = new HashSet<>();
-        int m = 0, majorityElement = nums[0];
-        for(int n:nums){
-            numset.add(n);
+    int candidate=nums[0];
+    int count=1;
+    for(int i=1;i<nums.length;i++){
+        if(candidate==nums[i]){
+            count++;
         }
-        for (int n : numset) {
-            int c = 0;
-            for (int n2 : nums) {
-                if (n2 == n) {
-                    c++;
-                }
-            }
-            if (c > m) {
-                m = c;
-                majorityElement = n;
-            }
+        else if(candidate!=nums[i] && count==0){
+            candidate=nums[i];
+            count++;
         }
-        return majorityElement;
+        else if(candidate!=nums[i]){
+            count--;
+        }
+    }
+    return candidate;
     }
 }
