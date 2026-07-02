@@ -1,5 +1,4 @@
 class Solution {
-
     public long subArrayRanges(int[] nums) {
         long smallest = sumSubarrayMins(nums);
         long largest = sumSubarrayMaxs(nums);
