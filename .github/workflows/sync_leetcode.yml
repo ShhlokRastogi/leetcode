@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
       - name: Sync LeetCode Solutions
         uses: joshcai/leetcode-sync@v1.7
         with:
@@ -17,3 +20,19 @@ jobs:
           leetcode-session: ${{ secrets.LEETCODE_SESSION }}
           destination-folder: my-solutions
           verbose: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.x"
+
+      - name: Generate Topic-Wise README
+        run: |
+          python scripts/generate_readme.py
+
+      - name: Commit Topic-Wise README
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update topic-wise distribution in README" && git push)
